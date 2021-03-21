@@ -11,15 +11,15 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
-// reusable ethereum key authorization tooling
-
-// Authorizer wraps ethereum transactopts
+// Authorizer wraps the bind.TransactOpts type making it safe for concurrent use.
+// A number of fields within bind.TransactOpts are not concurrency safe, and as such you must leverage
+// the embedded mutex type befopre using the transactor.
 type Authorizer struct {
 	sync.Mutex // bind.TransactOpts is not thread safe
 	*bind.TransactOpts
 }
 
-// NewAuthorizer returns an Authorizer object
+// NewAuthorizer returns an Authorizer object using a keyfile as the account source
 func NewAuthorizer(keyFile, keyPass string) (*Authorizer, error) {
 	fileBytes, err := ioutil.ReadFile(keyFile)
 	if err != nil {

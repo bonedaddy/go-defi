@@ -10,6 +10,9 @@ import (
 )
 
 // Blockchain is a generalized interface for interacting with the ethereum blockchain
+// it satisfies all functions required by the ethclient, and simulated backend types.
+// This allows you to use ethclient and the simulated backend interchangeably which is
+// particularly useful for testing
 type Blockchain interface {
 	// CodeAt returns the code of the given account. This is needed to differentiate
 	// between contract internal errors and the local chain being out of sync.
