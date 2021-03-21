@@ -11,11 +11,13 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 )
 
-// Authorizer wraps the bind.TransactOpts type making it safe for concurrent use.
-// A number of fields within bind.TransactOpts are not concurrency safe, and as such you must leverage
-// the embedded mutex type befopre using the transactor.
+// Authorizer wraps an embedded bind.TransactOpts type with a mutex lock allowing for
+// easier usage in concurrent programs. bind.TransactOpts is not thread-safe
+// and as such must be used with mutex locks to prevent encountering any issues.
+// Whenever using the embed bind.TransactOpts you must call Authorizer::Lock and
+// Authorizer::Unlock to avoid any possible race conditions
 type Authorizer struct {
-	sync.Mutex // bind.TransactOpts is not thread safe
+	mx sync.Mutex
 	*bind.TransactOpts
 }
 
@@ -49,4 +51,16 @@ func NewAccount() (*bind.TransactOpts, *ecdsa.PrivateKey, error) {
 		return nil, nil, err
 	}
 	return bind.NewKeyedTransactor(key), key, err
+}
+
+// Lock is used to claim a lock on the authorizer type
+// and must be called before using it for transaction signing
+func (a *Authorizer) Lock() {
+	a.mx.Lock()
+}
+
+// Unlock is used to release a lock on the authorizer type
+// and must be called after using it for transaction signing
+func (a *Authorizer) Unlock() {
+	a.mx.Unlock()
 }

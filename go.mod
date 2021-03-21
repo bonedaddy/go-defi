@@ -5,7 +5,6 @@ go 1.15
 require (
 	github.com/bonedaddy/go-indexed v0.0.23
 	github.com/ethereum/go-ethereum v1.10.1
-	github.com/pkg/errors v0.8.1
 	github.com/shopspring/decimal v1.2.0
 	github.com/stretchr/testify v1.7.0
 	github.com/urfave/cli/v2 v2.3.0
