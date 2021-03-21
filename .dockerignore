@@ -1,0 +1,25 @@
+# misc
+.git
+.gitmodules
+LICENSE
+release
+files
+scripts
+.travis.yml
+go-defi
+bin
+testing
+
+# regexs
+**/*.yaml
+**/*.yml
+**/*.db
+**/*.log
+**/*.profile
+**/*.md
+**/*.conf
+**/*.png
+**/*.txt
+**/*.conf
+**/*.csv
+**/Makefile

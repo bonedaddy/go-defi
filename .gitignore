@@ -1,0 +1,10 @@
+
+# misc
+config.yaml
+*.log
+release
+files
+go-defi
+
+# regex
+**/*.db
