@@ -24,18 +24,18 @@ import (
 
 	uniswapv2factory "github.com/bonedaddy/go-defi/bindings/uniswap/factory"
 	uniswapv2pair "github.com/bonedaddy/go-defi/bindings/uniswap/pair"
+	"github.com/bonedaddy/go-defi/utils"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/ethclient"
 )
 
 // Client allows to do operations on uniswap smart contracts.
 type Client struct {
-	bc *ethclient.Client
+	bc utils.Blockchain
 }
 
 // NewClient returns a new instance of uniswap client.
-func NewClient(bc *ethclient.Client) *Client {
+func NewClient(bc utils.Blockchain) *Client {
 	return &Client{
 		bc: bc,
 	}
