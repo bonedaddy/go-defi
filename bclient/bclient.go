@@ -24,7 +24,6 @@ type BClient struct {
 // types are exposed in addition to helper functions
 func NewClient(ctx context.Context, bc utils.Blockchain) (*BClient, error) {
 	ctx, cancel := context.WithCancel(ctx)
-
 	return &BClient{
 		ctx:    ctx,
 		cancel: cancel,
