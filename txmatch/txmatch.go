@@ -79,7 +79,7 @@ func (m *Matcher) Match(outFile string, startBlock, endBlock uint64) error {
 		block, err := ec.BlockByNumber(m.bc.Context(), ib)
 		if err != nil {
 			m.l.Error("ecountered error fetching block by number", zap.Error(err), zap.Uint64("block.number", i))
-			continue
+			return err
 		}
 		for _, tx := range block.Transactions() {
 			if utils.LogContextDone(m.l, m.bc.Context()) {
