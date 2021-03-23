@@ -72,6 +72,7 @@ func (m *Matcher) Match(outFile string, startBlock, endBlock uint64) error {
 	}
 	for i := startBlock; i <= endBlock; i++ {
 		if utils.LogContextDone(m.l, m.bc.Context()) {
+			m.l.Info("exiting at block number", zap.Uint64("block.number", i))
 			return nil
 		}
 		ib := new(big.Int).SetUint64(i)
@@ -82,6 +83,7 @@ func (m *Matcher) Match(outFile string, startBlock, endBlock uint64) error {
 		}
 		for _, tx := range block.Transactions() {
 			if utils.LogContextDone(m.l, m.bc.Context()) {
+				m.l.Info("exiting at block number", zap.Uint64("block.number", i))
 				return nil
 			}
 			// first check it is to one of the contracts
@@ -92,6 +94,16 @@ func (m *Matcher) Match(outFile string, startBlock, endBlock uint64) error {
 			// validate it is to an interested contract
 			if !m.wantContracts[*tx.To()] {
 				// skip this as its not to a contract we are interested in
+				continue
+			}
+			// for some reason when using common.Address in a map
+			// the al zero adddress will be marked as true
+			// and pass the check above m.wantContracts so explicitly ignore it
+			if tx.To().String() == common.HexToAddress("").String() {
+				continue
+			}
+			if len(tx.Data()) < 3 {
+				// skip as this is not a contract call we are interested in
 				continue
 			}
 			m.l.Info("found interested transaction", zap.String("tx.hash", tx.Hash().String()))
