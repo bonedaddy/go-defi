@@ -2,6 +2,7 @@ package bclient
 
 import (
 	"context"
+	"math/big"
 
 	"github.com/bonedaddy/go-defi/sushiswap"
 	"github.com/bonedaddy/go-defi/uniswap"
@@ -53,6 +54,23 @@ func (bc *BClient) EthClient() (*ethclient.Client, error) {
 		return nil, ErrNotEthClient
 	}
 	return ec, nil
+}
+
+// ChainID performs a best effort at determining the chainid
+// we do this by first attempting to retrieve the id from
+// a simulated backend, and if that fails get the chain id
+// from an ethclient
+func (bc *BClient) ChainID() (*big.Int, error) {
+	if sb, err := bc.SimulatedBackend(); err == nil {
+		// get chainid
+		return sb.Blockchain().Config().ChainID, nil
+	} else {
+		if ec, err := bc.EthClient(); err != nil {
+			return nil, err
+		} else {
+			return ec.ChainID(bc.ctx)
+		}
+	}
 }
 
 // Blockchain returns the underlying blockchain interface

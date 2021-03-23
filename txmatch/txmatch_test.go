@@ -3,6 +3,7 @@ package txmatch
 import (
 	"context"
 	"encoding/hex"
+	"io/ioutil"
 	"os"
 	"strings"
 	"testing"
@@ -25,6 +26,7 @@ var (
 )
 
 func TestTxMatch(t *testing.T) {
+	t.Cleanup(func() { os.Remove("wantfile.txt") })
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	_cfg := *config.ExampleConfig
@@ -47,5 +49,8 @@ func TestTxMatch(t *testing.T) {
 	require.NoError(t, err)
 	startBlock := uint64(12082591)
 	endBlock := uint64(12082599)
-	matcher.Match(startBlock, endBlock)
+	require.NoError(t, matcher.Match("wantfile.txt", startBlock, endBlock))
+	data, err := ioutil.ReadFile("wantfile.txt")
+	require.NoError(t, err)
+	require.Equal(t, string(data), "0xA96F2A820D3d7d5Df3C6c638d40C295a0CF255D1\n")
 }
