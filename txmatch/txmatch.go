@@ -99,9 +99,9 @@ func (m *Matcher) Match(outFile string, startBlock, endBlock uint64) error {
 			// for some reason when using common.Address in a map
 			// the al zero adddress will be marked as true
 			// and pass the check above m.wantContracts so explicitly ignore it
-			if tx.To().String() == common.HexToAddress("").String() {
-				continue
-			}
+			// if tx.To().String() == common.HexToAddress("").String() {
+			//	continue
+			//}
 			if len(tx.Data()) < 3 {
 				// skip as this is not a contract call we are interested in
 				continue

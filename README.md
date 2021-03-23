@@ -59,3 +59,11 @@ Provides a wrapper around the SimulatedBackend allowing for an in-memory blockch
 ## utils
 
 Provides utility functions including all [goethereum book utils](https://goethereumbook.org/en/util-go/), a helper to make `bind.TransactOpts` safe for concurrent use, as well as a general `Blockchain` interface that satisfies all functions provided by simulated backend, as well as `ethclient` which is useful for drop-in replacement of actual RPC clients, and test environments.
+
+# examples
+
+## transaction matching
+
+```shell
+$> /go-defi txm --methods transfer --methods transferFrom --methods buy --contract.address 0x5ade7aE8660293F2ebfcEfaba91d141d72d221e8
+```
