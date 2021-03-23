@@ -1,7 +1,6 @@
 package txmatch
 
 import (
-	"log"
 	"math/big"
 	"os"
 	"strings"
@@ -11,9 +10,15 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
+	"go.uber.org/zap"
 )
 
+// Matcher provides transaction matching capabilities allowing for the filtration
+// of transactions to specific contracts or addresses using ABI's as the method
+// of filtering out transactions. Suitable for building a list of addresses
+// that have interacted with particular contracts
 type Matcher struct {
+	l             *zap.Logger
 	bc            *bclient.BClient
 	wantMethods   map[string]bool
 	wantContracts map[common.Address]bool
@@ -21,7 +26,13 @@ type Matcher struct {
 }
 
 // NewMatcher returns a new transaction matcher
-func NewMatcher(bc *bclient.BClient, abistr string, methods, contracts []string) (*Matcher, error) {
+func NewMatcher(
+	logger *zap.Logger,
+	bc *bclient.BClient,
+	abistr string,
+	methods,
+	contracts []string,
+) (*Matcher, error) {
 	parsedABI, err := abi.JSON(strings.NewReader(abistr))
 	if err != nil {
 		return nil, err
@@ -37,6 +48,7 @@ func NewMatcher(bc *bclient.BClient, abistr string, methods, contracts []string)
 		wantContracts[common.HexToAddress(contract)] = true
 	}
 	return &Matcher{
+		l:             logger.Named("txmatch"),
 		abi:           parsedABI,
 		bc:            bc,
 		wantMethods:   wantMethods,
@@ -59,19 +71,17 @@ func (m *Matcher) Match(outFile string, startBlock, endBlock uint64) error {
 		return err
 	}
 	for i := startBlock; i <= endBlock; i++ {
-		if utils.ContextDone(m.bc.Context()) {
-			log.Println("context cancelled, exiting")
+		if utils.LogContextDone(m.l, m.bc.Context()) {
 			return nil
 		}
 		ib := new(big.Int).SetUint64(i)
 		block, err := ec.BlockByNumber(m.bc.Context(), ib)
 		if err != nil {
-			log.Println("encountered error fetching block by number: ", block)
+			m.l.Error("ecountered error fetching block by number", zap.Error(err), zap.Uint64("block.number", i))
 			continue
 		}
 		for _, tx := range block.Transactions() {
-			if utils.ContextDone(m.bc.Context()) {
-				log.Println("context cancelled, exiting")
+			if utils.LogContextDone(m.l, m.bc.Context()) {
 				return nil
 			}
 			// first check it is to one of the contracts
@@ -84,7 +94,7 @@ func (m *Matcher) Match(outFile string, startBlock, endBlock uint64) error {
 				// skip this as its not to a contract we are interested in
 				continue
 			}
-			log.Println("found interested transaction: ", tx.Hash())
+			m.l.Info("found interested transaction", zap.String("tx.hash", tx.Hash().String()))
 			// validate the method is as expected
 			method, err := m.abi.MethodById(tx.Data()[0:4])
 			if err != nil {
@@ -92,18 +102,17 @@ func (m *Matcher) Match(outFile string, startBlock, endBlock uint64) error {
 				continue
 			}
 			if !m.wantMethods[method.Name] {
-				log.Println("Invalid method name")
 				// skip
 				continue
 			}
 			msg, err := tx.AsMessage(types.NewEIP2930Signer(chid))
 			if err != nil {
-				log.Println("failed to parse tx as message: ", err)
+				m.l.Error("failed to parse tx as message", zap.Error(err), zap.String("tx.hash", tx.Hash().String()))
 				continue
 			}
 			_, err = fh.WriteString(msg.From().String() + "\n")
 			if err != nil {
-				log.Println("failed to append address to file: ", err)
+				m.l.Error("failed to append address to file", zap.Error(err))
 			}
 		}
 	}

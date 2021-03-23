@@ -33,6 +33,8 @@ func TestTxMatch(t *testing.T) {
 	cfg := &_cfg
 	cfg.ProviderType = "infura"
 	cfg.APIKey = os.Getenv("INFURA_API_KEY")
+	logger, err := cfg.ZapLogger()
+	require.NoError(t, err)
 	ec, err := cfg.EthClient(ctx)
 	require.NoError(t, err)
 	bc, err := bclient.NewClient(ctx, ec)
@@ -45,7 +47,7 @@ func TestTxMatch(t *testing.T) {
 	require.NoError(t, tx.UnmarshalBinary(decodedTx))
 	_ = parsedABI
 	wantMethods := []string{"transfer", "transferFrom"}
-	matcher, err := NewMatcher(bc, erc20.Erc20ABI, wantMethods, []string{contractAddr})
+	matcher, err := NewMatcher(logger, bc, erc20.Erc20ABI, wantMethods, []string{contractAddr})
 	require.NoError(t, err)
 	startBlock := uint64(12082591)
 	endBlock := uint64(12082599)
