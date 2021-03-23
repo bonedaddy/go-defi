@@ -9,7 +9,7 @@ func New(name, usage, version string) *cli.App {
 	app.Name = name
 	app.Usage = usage
 	app.Version = version
-	app.Commands = cli.Commands{configCommand(), txMatchCommand()}
+	app.Commands = cli.Commands{configCommand(), txMatchCommand(), transactionsCommand()}
 	app.Flags = []cli.Flag{
 		&cli.StringFlag{
 			Name:    "config.path",
