@@ -46,4 +46,11 @@ type Blockchain interface {
 	// a subscription immediately, which can be used to stream the found events.
 	SubscribeFilterLogs(ctx context.Context, query ethereum.FilterQuery, ch chan<- types.Log) (ethereum.Subscription, error)
 	TransactionReceipt(ctx context.Context, txHash common.Hash) (*types.Receipt, error)
+	// SubscribeNewHead returns an event subscription for a new header.
+	SubscribeNewHead(ctx context.Context, ch chan<- *types.Header) (ethereum.Subscription, error)
+	// TransactionByHash checks the pool of pending transactions in addition to the
+	// blockchain. The isPending return value indicates whether the transaction has been
+	// mined yet. Note that the transaction may not be part of the canonical chain even if
+	// it's not pending.
+	TransactionByHash(ctx context.Context, txHash common.Hash) (*types.Transaction, bool, error)
 }

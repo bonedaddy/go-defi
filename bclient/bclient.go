@@ -2,10 +2,12 @@ package bclient
 
 import (
 	"context"
+	"math/big"
 
 	"github.com/bonedaddy/go-defi/sushiswap"
 	"github.com/bonedaddy/go-defi/uniswap"
 	"github.com/bonedaddy/go-defi/utils"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind/backends"
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
@@ -23,7 +25,6 @@ type BClient struct {
 // types are exposed in addition to helper functions
 func NewClient(ctx context.Context, bc utils.Blockchain) (*BClient, error) {
 	ctx, cancel := context.WithCancel(ctx)
-
 	return &BClient{
 		ctx:    ctx,
 		cancel: cancel,
@@ -31,6 +32,17 @@ func NewClient(ctx context.Context, bc utils.Blockchain) (*BClient, error) {
 		uc:     uniswap.NewClient(bc),
 		sc:     sushiswap.NewClient(bc),
 	}, nil
+}
+
+// SimulatedBackend attempts to conver the Blockchain interface to a simulated backend type
+// returning an error if unable to type convert the interface. This likely indicates
+// that an ethclient backend is being used
+func (bc *BClient) SimulatedBackend() (*backends.SimulatedBackend, error) {
+	sn, ok := bc.bc.(*backends.SimulatedBackend)
+	if !ok {
+		return nil, ErrNotSimulatedBackend
+	}
+	return sn, nil
 }
 
 // EthClient attempts to conver the Blockchain interface to an ethclient type
@@ -43,6 +55,26 @@ func (bc *BClient) EthClient() (*ethclient.Client, error) {
 	}
 	return ec, nil
 }
+
+// ChainID performs a best effort at determining the chainid
+// we do this by first attempting to retrieve the id from
+// a simulated backend, and if that fails get the chain id
+// from an ethclient
+func (bc *BClient) ChainID() (*big.Int, error) {
+	if sb, err := bc.SimulatedBackend(); err == nil {
+		// get chainid
+		return sb.Blockchain().Config().ChainID, nil
+	} else {
+		if ec, err := bc.EthClient(); err != nil {
+			return nil, err
+		} else {
+			return ec.ChainID(bc.ctx)
+		}
+	}
+}
+
+// Blockchain returns the underlying blockchain interface
+func (bc *BClient) Blockchain() utils.Blockchain { return bc.bc }
 
 // CurrentBlock returns the current block known by the ethereum client
 func (bc *BClient) CurrentBlock() (uint64, error) {

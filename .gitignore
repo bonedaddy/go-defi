@@ -8,3 +8,6 @@ go-defi
 
 # regex
 **/*.db
+abifile.txt
+
+outfile.txt

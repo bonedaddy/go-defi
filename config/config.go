@@ -165,17 +165,16 @@ func NewConfig(path string) error {
 // however if loading from path fails, we attempt to load
 // from environment variabels
 func LoadConfig(path string) (cfg *Config, err error) {
+	cfg = new(Config)
 	func() {
 		var r []byte
 		r, err = ioutil.ReadFile(path)
 		if err != nil {
 			return
 		}
-		var _cfg Config
-		if err := yaml.Unmarshal(r, &cfg); err != nil {
+		if err := yaml.Unmarshal(r, cfg); err != nil {
 			return
 		}
-		cfg = &_cfg
 	}()
 	if err != nil {
 		cfg = &Config{}
