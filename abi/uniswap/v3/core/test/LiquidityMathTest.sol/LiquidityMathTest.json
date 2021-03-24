@@ -1,0 +1,50 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint128",
+        "name": "x",
+        "type": "uint128"
+      },
+      {
+        "internalType": "int128",
+        "name": "y",
+        "type": "int128"
+      }
+    ],
+    "name": "addDelta",
+    "outputs": [
+      {
+        "internalType": "uint128",
+        "name": "z",
+        "type": "uint128"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint128",
+        "name": "x",
+        "type": "uint128"
+      },
+      {
+        "internalType": "int128",
+        "name": "y",
+        "type": "int128"
+      }
+    ],
+    "name": "getGasCostOfAddDelta",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

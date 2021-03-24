@@ -10,7 +10,12 @@ docker:
 	docker build --build-arg VERSION=$(GIT_VERSION) -t bonedaddy/go-defi:$(GIT_VERSION) .
 	docker image tag bonedaddy/go-defi:$(GIT_VERSION) bonedaddy/go-defi:latest
 
-
+.PHONY: flatten-dependencies
+flatten-dependencies:
+	@echo "generating abis"
+	(cd v3-core ; npm run compile ; cp -r abis/contracts/* ../abi/uniswap/v3/core)
+	(cd v3-periphery ; npm run compile ; cp -r abis/contracts/* ../abi/uniswap/v3/periphery)
+	
 .PHONY: release
 release:
 	./scripts/release.sh

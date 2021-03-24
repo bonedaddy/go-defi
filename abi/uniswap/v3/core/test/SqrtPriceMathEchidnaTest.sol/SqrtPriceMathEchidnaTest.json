@@ -1,0 +1,308 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtP",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtQ",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "bool",
+        "name": "roundUp",
+        "type": "bool"
+      }
+    ],
+    "name": "getAmount0DeltaEquivalency",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtP",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtQ",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      }
+    ],
+    "name": "getAmount0DeltaInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtP",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtQ",
+        "type": "uint160"
+      },
+      {
+        "internalType": "int128",
+        "name": "liquidity",
+        "type": "int128"
+      }
+    ],
+    "name": "getAmount0DeltaSignedInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtP",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtQ",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      }
+    ],
+    "name": "getAmount1DeltaInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtP",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtQ",
+        "type": "uint160"
+      },
+      {
+        "internalType": "int128",
+        "name": "liquidity",
+        "type": "int128"
+      }
+    ],
+    "name": "getAmount1DeltaSignedInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtLower",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtCurrent",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtUpper",
+        "type": "uint160"
+      },
+      {
+        "internalType": "int128",
+        "name": "liquidity",
+        "type": "int128"
+      }
+    ],
+    "name": "getInRangeMintInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtPX96",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "add",
+        "type": "bool"
+      }
+    ],
+    "name": "getNextSqrtPriceFromAmount0RoundingUpInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtPX96",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "add",
+        "type": "bool"
+      }
+    ],
+    "name": "getNextSqrtPriceFromAmount1RoundingDownInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtP",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountIn",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "zeroForOne",
+        "type": "bool"
+      }
+    ],
+    "name": "getNextSqrtPriceFromInputInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtP",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountOut",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "zeroForOne",
+        "type": "bool"
+      }
+    ],
+    "name": "getNextSqrtPriceFromOutputInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtA",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtB",
+        "type": "uint160"
+      },
+      {
+        "internalType": "int128",
+        "name": "liquidity",
+        "type": "int128"
+      }
+    ],
+    "name": "getOutOfRangeMintInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "x",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "y",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "z",
+        "type": "uint256"
+      }
+    ],
+    "name": "mulDivRoundingUpInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  }
+]

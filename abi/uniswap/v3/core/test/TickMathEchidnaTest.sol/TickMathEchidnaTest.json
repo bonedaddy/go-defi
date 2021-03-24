@@ -1,0 +1,28 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "int24",
+        "name": "tick",
+        "type": "int24"
+      }
+    ],
+    "name": "checkGetSqrtRatioAtTickInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "ratio",
+        "type": "uint160"
+      }
+    ],
+    "name": "checkGetTickAtSqrtRatioInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  }
+]

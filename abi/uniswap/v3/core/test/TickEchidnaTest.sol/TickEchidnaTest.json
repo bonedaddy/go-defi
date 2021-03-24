@@ -1,0 +1,15 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "int24",
+        "name": "tickSpacing",
+        "type": "int24"
+      }
+    ],
+    "name": "checkTickSpacingToParametersInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  }
+]
