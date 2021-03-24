@@ -1,0 +1,3 @@
+[submodule "v3-core"]
+	path = v3-core
+	url = https://github.com/Uniswap/uniswap-v3-core.git
