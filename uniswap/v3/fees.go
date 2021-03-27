@@ -42,6 +42,15 @@ var (
 	// FeeZero denotes a fee of 0% which is currently unsupported
 	// and is the fee returned during errors
 	FeeZero = Fee(0)
+
+	// fees as reported byhttps://github.com/Uniswap/uniswap-v3-sdk/blob/main/src/constants.ts#L9-L13
+	// LowFee see constants linke above
+	LowFee = FeePointZeroFivePercent
+	// MediumFee see constants link above
+	MediumFee = FeePointThreePercent
+	// HighFee see constnats link above
+	HighFee = FeeOnePercent
+
 	// ErrUnsupportedFee is an error returned when attempting to use an unsupported fee setting
 	ErrUnsupportedFee = errors.New("unsupported fee setting")
 )

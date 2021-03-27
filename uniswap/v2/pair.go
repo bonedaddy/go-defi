@@ -22,6 +22,7 @@ import (
 	"encoding/hex"
 	"math/big"
 
+	ucommon "github.com/bonedaddy/go-defi/uniswap/common"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 )
@@ -37,7 +38,7 @@ const pairAddressSuffix = "96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3
 // GeneratePairAddress generates a pair address for the given tokens
 func GeneratePairAddress(token0, token1 common.Address) common.Address {
 	// addresses need to be sorted in an ascending order for proper behaviour
-	token0, token1 = sortAddressess(token0, token1)
+	token0, token1 = ucommon.SortAddressess(token0, token1)
 
 	// 255 is required as a prefix for this to work
 	// see: https://uniswap.org/docs/v2/javascript-SDK/getting-pair-addresses/
@@ -71,17 +72,6 @@ func Quote(amount, reserve0, reserve1 *big.Int) *big.Int {
 	multiplied := new(big.Int).Mul(amount, reserve1)
 	res := new(big.Int).Div(multiplied, reserve0)
 	return res
-}
-
-func sortAddressess(tkn0, tkn1 common.Address) (common.Address, common.Address) {
-	token0Rep := big.NewInt(0).SetBytes(tkn0.Bytes())
-	token1Rep := big.NewInt(0).SetBytes(tkn1.Bytes())
-
-	if token0Rep.Cmp(token1Rep) > 0 {
-		tkn0, tkn1 = tkn1, tkn0
-	}
-
-	return tkn0, tkn1
 }
 
 // Pair represents a token pair.
