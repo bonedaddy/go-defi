@@ -1,4 +1,4 @@
-package uniswap
+package uniswapv2
 
 import "math/big"
 

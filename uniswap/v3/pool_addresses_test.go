@@ -1,4 +1,4 @@
-package v3
+package uniswapv3
 
 import "testing"
 

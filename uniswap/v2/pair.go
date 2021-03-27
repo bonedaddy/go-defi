@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-// Package uniswap contains the required bindings as well as corresponding wrappers for those bindings for interacting with the uniswap smart contracts.
-package uniswap
+// Package uniswapv2 contains the required bindings as well as corresponding wrappers for those bindings for interacting with the uniswap smart contracts.
+package uniswapv2
 
 import (
 	"encoding/hex"

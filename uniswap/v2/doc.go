@@ -1,2 +1,2 @@
-// Package uniswap provdies a Golang client wrapper for UniswapV2
-package uniswap
+// Package uniswapv2 provdies a Golang client wrapper for UniswapV2
+package uniswapv2
