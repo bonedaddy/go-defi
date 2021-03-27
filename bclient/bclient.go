@@ -5,7 +5,7 @@ import (
 	"math/big"
 
 	"github.com/bonedaddy/go-defi/sushiswap"
-	"github.com/bonedaddy/go-defi/uniswap"
+	"github.com/bonedaddy/go-defi/uniswap/v2"
 	"github.com/bonedaddy/go-defi/utils"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind/backends"
 	"github.com/ethereum/go-ethereum/ethclient"

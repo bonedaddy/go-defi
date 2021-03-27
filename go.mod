@@ -3,19 +3,9 @@ module github.com/bonedaddy/go-defi
 go 1.15
 
 require (
-	github.com/consensys/gurvy v0.3.8 // indirect
-	github.com/edsrzf/mmap-go v1.0.0 // indirect
+	github.com/bonedaddy/bdsm v0.0.3-rc2
 	github.com/ethereum/go-ethereum v1.10.0
-	github.com/fjl/memsize v0.0.0-20190710130421-bcb5799ab5e5 // indirect
-	github.com/golang/protobuf v1.4.3 // indirect
-	github.com/google/uuid v1.1.5 // indirect
-	github.com/graph-gophers/graphql-go v0.0.0-20201113091052-beb923fada29 // indirect
-	github.com/hashicorp/golang-lru v0.5.5-0.20210104140557-80c98217689d // indirect
-	github.com/holiman/bloomfilter/v2 v2.0.3 // indirect
-	github.com/huin/goupnp v1.0.1-0.20200620063722-49508fba0031 // indirect
-	github.com/influxdata/influxdb v1.8.3 // indirect
 	github.com/ipfs/go-ipfs-config v0.12.0
-	github.com/rs/cors v1.7.0 // indirect
 	github.com/shopspring/decimal v1.2.0
 	github.com/stretchr/testify v1.7.0
 	github.com/urfave/cli/v2 v2.3.0
