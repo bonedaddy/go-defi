@@ -43,7 +43,7 @@ var (
 	// and is the fee returned during errors
 	FeeZero = Fee(0)
 
-	// fees as reported byhttps://github.com/Uniswap/uniswap-v3-sdk/blob/main/src/constants.ts#L9-L13
+	// fees as reported by https://github.com/Uniswap/uniswap-v3-sdk/blob/main/src/constants.ts#L9-L13
 	// LowFee see constants linke above
 	LowFee = FeePointZeroFivePercent
 	// MediumFee see constants link above

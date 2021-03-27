@@ -16,7 +16,9 @@ var (
 	InitCodeHash = "01d4d358e07707f4db84b6a7527455b06f95ee89b5d059b4a1298ada7b6c7d67"
 )
 
-func GeneratePairAddress(
+// GeneratePoolAddress is used to calculate a pool's address
+// it leverages create 2 with token0 token1 and the fee being part of the salt
+func GeneratePoolAddress(
 	factory,
 	token0,
 	token1 common.Address,

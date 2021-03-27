@@ -90,38 +90,6 @@ func TestV3Simulated(t *testing.T) {
 			})
 		}
 	})
-	/*t.Run("Test", func(t *testing.T) {
-		uint256Ty, _ := abi.NewType("uint256")
-		bytes32Ty, _ := abi.NewType("bytes32")
-		addressTy, _ := abi.NewType("address")
-
-		arguments := abi.Arguments{
-			{
-				Type: addressTy,
-			},
-			{
-				Type: bytes32Ty,
-			},
-			{
-				Type: uint256Ty,
-			},
-		}
-
-		bytes, _ := arguments.Pack(
-			common.HexToAddress("0x0000000000000000000000000000000000000000"),
-			[32]byte{'I', 'D', '1'},
-			big.NewInt(42),
-		)
-
-		var buf []byte
-		hash := sha3.NewKeccak256()
-		hash.Write(bytes)
-		buf = hash.Sum(buf)
-
-		log.Println(hexutil.Encode(buf))
-		// output:
-		// 0x1f214438d7c061ad56f98540db9a082d372df1ba9a3c96367f0103aa16c2fe9a
-	})*/
 	tx, err := poolFactory.CreatePool(
 		tenv.Auth,
 		tokenA1,
@@ -134,9 +102,8 @@ func TestV3Simulated(t *testing.T) {
 	// check pool addressses
 	addr, err := poolFactory.GetPool(nil, tokenA1, tokenB1, LowFee.Big())
 	require.NoError(t, err)
-	t.Log("onchain pool address: ", addr)
-	addr = GeneratePairAddress(poolFactoryAddress, tokenA1, tokenB1, LowFee)
-	t.Log("offchain pool address: ", addr)
+	// ensure we can generate the same address offchain
+	require.Equal(t, addr.String(), GeneratePoolAddress(poolFactoryAddress, tokenA1, tokenB1, LowFee).String())
 	// for naming purposes a pool is identified by:
 	// token0:token1-fee
 	_ = poolFactory
