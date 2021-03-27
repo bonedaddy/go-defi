@@ -7,6 +7,7 @@ import (
 
 	"github.com/bonedaddy/bdsm/bindings/erc20factory"
 	v3factory "github.com/bonedaddy/go-defi/bindings/uniswap/v3/factory"
+	v3swaprouter "github.com/bonedaddy/go-defi/bindings/uniswap/v3/swaprouter"
 	"github.com/bonedaddy/go-defi/testenv"
 	"github.com/bonedaddy/go-defi/utils"
 	"github.com/ethereum/go-ethereum/common"
@@ -42,7 +43,8 @@ func TestV3Simulated(t *testing.T) {
 	})
 	// token symbols -> addresses
 	tokenMap := make(map[string]common.Address)
-	var tokenA1, tokenB1, tokenA2, tokenB2 common.Address
+	// weth9 is a token representing WETH
+	var tokenA1, tokenB1, tokenA2, tokenB2, weth9 common.Address
 	t.Run("CreatingFakeTokens", func(t *testing.T) {
 		type args struct {
 			owner    common.Address
@@ -60,6 +62,7 @@ func TestV3Simulated(t *testing.T) {
 			{"TokenB1", args{tenv.Auth.From, utils.ToWei(100000000.0, 18), "TokenB1", "TB1", 18}},
 			{"TokenA2", args{tenv.Auth.From, utils.ToWei(100000000.0, 18), "TokenA2", "TA2", 18}},
 			{"TokenB2", args{tenv.Auth.From, utils.ToWei(100000000.0, 18), "TokenB2", "TB2", 18}},
+			{"WETH9", args{tenv.Auth.From, utils.ToWei(100000000.0, 18), "WrappedEthereum", "WETH9", 18}},
 		}
 		for _, tt := range tests {
 			t.Run(tt.name, func(t *testing.T) {
@@ -86,9 +89,26 @@ func TestV3Simulated(t *testing.T) {
 					tokenA2 = tokenMap[tt.args.symbol]
 				case "TB2":
 					tokenB2 = tokenMap[tt.args.symbol]
+				case "WETH9":
+					weth9 = tokenMap[tt.args.symbol]
 				}
 			})
 		}
+	})
+	require.NotEqual(t, weth9.String(), common.HexToAddress("").String())
+	var swapRouter *v3swaprouter.V3swaprouter
+	t.Run("DeploySwapRouter", func(t *testing.T) {
+		addr, tx, pSwapRouter, err := v3swaprouter.DeployV3swaprouter(
+			tenv.Auth,
+			tenv,
+			poolFactoryAddress,
+			weth9,
+		)
+		require.NoError(t, err)
+		_, err = tenv.DoWaitDeployed(tx)
+		require.NoError(t, err)
+		t.Log("swap router address: ", addr)
+		swapRouter = pSwapRouter
 	})
 	tx, err := poolFactory.CreatePool(
 		tenv.Auth,
@@ -112,4 +132,5 @@ func TestV3Simulated(t *testing.T) {
 	_ = tokenB1
 	_ = tokenA2
 	_ = tokenB2
+	_ = swapRouter
 }
