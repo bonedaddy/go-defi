@@ -53,4 +53,6 @@ type Blockchain interface {
 	// mined yet. Note that the transaction may not be part of the canonical chain even if
 	// it's not pending.
 	TransactionByHash(ctx context.Context, txHash common.Hash) (*types.Transaction, bool, error)
+	// BlockNumber returns the most recent block number
+	BlockNumber(ctx context.Context) (uint64, error)
 }
