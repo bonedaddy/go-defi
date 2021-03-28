@@ -1,0 +1,100 @@
+[
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "int256",
+        "name": "amount0Delta",
+        "type": "int256"
+      },
+      {
+        "indexed": false,
+        "internalType": "int256",
+        "name": "amount1Delta",
+        "type": "int256"
+      }
+    ],
+    "name": "SwapCallback",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "poolInput",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "poolOutput",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount0Out",
+        "type": "uint256"
+      }
+    ],
+    "name": "swapForExact0Multi",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "recipient",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "poolInput",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "poolOutput",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount1Out",
+        "type": "uint256"
+      }
+    ],
+    "name": "swapForExact1Multi",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "int256",
+        "name": "amount0Delta",
+        "type": "int256"
+      },
+      {
+        "internalType": "int256",
+        "name": "amount1Delta",
+        "type": "int256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "uniswapV3SwapCallback",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtPriceRaw",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtPriceTargetRaw",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "int256",
+        "name": "amountRemaining",
+        "type": "int256"
+      },
+      {
+        "internalType": "uint24",
+        "name": "feePips",
+        "type": "uint24"
+      }
+    ],
+    "name": "checkComputeSwapStepInvariants",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  }
+]

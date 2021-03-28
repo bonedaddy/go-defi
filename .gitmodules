@@ -1,0 +1,6 @@
+[submodule "v3-core"]
+	path = v3-core
+	url = https://github.com/Uniswap/uniswap-v3-core.git
+[submodule "v3-periphery"]
+	path = v3-periphery
+	url = https://github.com/Uniswap/uniswap-v3-periphery.git

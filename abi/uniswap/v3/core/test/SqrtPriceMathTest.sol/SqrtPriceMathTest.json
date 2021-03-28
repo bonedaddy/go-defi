@@ -1,0 +1,274 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtLower",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtUpper",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "bool",
+        "name": "roundUp",
+        "type": "bool"
+      }
+    ],
+    "name": "getAmount0Delta",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount0",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtLower",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtUpper",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "bool",
+        "name": "roundUp",
+        "type": "bool"
+      }
+    ],
+    "name": "getAmount1Delta",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "amount1",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtLower",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtUpper",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "bool",
+        "name": "roundUp",
+        "type": "bool"
+      }
+    ],
+    "name": "getGasCostOfGetAmount0Delta",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtLower",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtUpper",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "bool",
+        "name": "roundUp",
+        "type": "bool"
+      }
+    ],
+    "name": "getGasCostOfGetAmount1Delta",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtP",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountIn",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "zeroForOne",
+        "type": "bool"
+      }
+    ],
+    "name": "getGasCostOfGetNextSqrtPriceFromInput",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtP",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountOut",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "zeroForOne",
+        "type": "bool"
+      }
+    ],
+    "name": "getGasCostOfGetNextSqrtPriceFromOutput",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtP",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountIn",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "zeroForOne",
+        "type": "bool"
+      }
+    ],
+    "name": "getNextSqrtPriceFromInput",
+    "outputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtQ",
+        "type": "uint160"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtP",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountOut",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "zeroForOne",
+        "type": "bool"
+      }
+    ],
+    "name": "getNextSqrtPriceFromOutput",
+    "outputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtQ",
+        "type": "uint160"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  }
+]

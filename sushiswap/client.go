@@ -22,8 +22,8 @@ import (
 	"math/big"
 	"time"
 
-	uniswapv2factory "github.com/bonedaddy/go-defi/bindings/uniswap/factory"
-	uniswapv2pair "github.com/bonedaddy/go-defi/bindings/uniswap/pair"
+	uniswapv2factory "github.com/bonedaddy/go-defi/bindings/uniswap/v2/factory"
+	uniswapv2pair "github.com/bonedaddy/go-defi/bindings/uniswap/v2/pair"
 	"github.com/bonedaddy/go-defi/utils"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"

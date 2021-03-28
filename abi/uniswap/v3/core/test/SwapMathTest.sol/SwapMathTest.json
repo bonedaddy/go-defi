@@ -1,0 +1,95 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtP",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtPTarget",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "int256",
+        "name": "amountRemaining",
+        "type": "int256"
+      },
+      {
+        "internalType": "uint24",
+        "name": "feePips",
+        "type": "uint24"
+      }
+    ],
+    "name": "computeSwapStep",
+    "outputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtQ",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountIn",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountOut",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "feeAmount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint160",
+        "name": "sqrtP",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint160",
+        "name": "sqrtPTarget",
+        "type": "uint160"
+      },
+      {
+        "internalType": "uint128",
+        "name": "liquidity",
+        "type": "uint128"
+      },
+      {
+        "internalType": "int256",
+        "name": "amountRemaining",
+        "type": "int256"
+      },
+      {
+        "internalType": "uint24",
+        "name": "feePips",
+        "type": "uint24"
+      }
+    ],
+    "name": "getGasCostOfComputeSwapStep",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
