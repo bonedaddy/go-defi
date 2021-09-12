@@ -9,6 +9,7 @@ import (
 	"github.com/bonedaddy/go-defi/uniswap"
 	"github.com/bonedaddy/go-defi/utils"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/pkg/errors"
 )
 
 // BClient wraps ethclient and provides helper functions for commonly used functionality
@@ -66,7 +67,7 @@ func (bc *BClient) ChainID() (*big.Int, error) {
 		return sb.Blockchain().Config().ChainID, nil
 	} else {
 		if ec, err := bc.EthClient(); err != nil {
-			return nil, err
+			return nil, errors.Wrap(err, "eth client")
 		} else {
 			return ec.ChainID(bc.ctx)
 		}
@@ -80,7 +81,7 @@ func (bc *BClient) Blockchain() utils.Blockchain { return bc.bc }
 func (bc *BClient) CurrentBlock() (uint64, error) {
 	ec, err := bc.EthClient()
 	if err != nil {
-		return 0, err
+		return 0, errors.Wrap(err, "eth client")
 	}
 	return ec.BlockNumber(bc.ctx)
 }

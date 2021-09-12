@@ -74,11 +74,11 @@ func (db *Opts) Open() (gorm.Dialector, error) {
 func New(opts *Opts) (*Database, error) {
 	dialector, err := opts.Open()
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "opts open")
 	}
 	db, err := gorm.Open(dialector, nil)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "gorm open")
 	}
 	return &Database{db: db}, nil
 }

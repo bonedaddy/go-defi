@@ -36,7 +36,7 @@ func NewMatcher(
 ) (*Matcher, error) {
 	parsedABI, err := abi.JSON(strings.NewReader(abistr))
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "json")
 	}
 	var (
 		wantMethods   = make(map[string]bool)

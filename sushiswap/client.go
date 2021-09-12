@@ -18,7 +18,6 @@ package sushiswap
 
 import (
 	"context"
-	"errors"
 	"math/big"
 	"time"
 
@@ -27,6 +26,7 @@ import (
 	"github.com/bonedaddy/go-defi/utils"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/pkg/errors"
 )
 
 // Client allows to do operations on uniswap smart contracts.
@@ -46,7 +46,7 @@ func (c *Client) GetReserves(token0, token1 common.Address) (*Reserve, error) {
 	addr := GeneratePairAddress(token0, token1)
 	caller, err := uniswapv2pair.NewUniswapv2pairCaller(addr, c.bc)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "new uniswap pair caller")
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()
@@ -54,7 +54,7 @@ func (c *Client) GetReserves(token0, token1 common.Address) (*Reserve, error) {
 		Context: ctx,
 	})
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "get reserves")
 	}
 	// This is the tricky bit.
 	// The reserve call returns the reserves for token0 and token1 in a sorted order.
@@ -71,7 +71,7 @@ func (c *Client) GetReserves(token0, token1 common.Address) (*Reserve, error) {
 func (c *Client) GetExchangeAmount(amount *big.Int, token0, token1 common.Address) (*big.Int, error) {
 	reserves, err := c.GetReserves(token0, token1)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "get reserves")
 	}
 	return Quote(amount, reserves.Reserve0, reserves.Reserve1), nil
 }
@@ -86,7 +86,7 @@ func (c *Client) GetExchangeAmountForPath(amount *big.Int, tokens ...common.Addr
 	for i := range pairs {
 		a, err := c.GetExchangeAmount(amount, pairs[i].Token0, pairs[i].Token1)
 		if err != nil {
-			return nil, err
+			return nil, errors.Wrap(err, "get echange amount")
 		}
 		amount = a
 	}

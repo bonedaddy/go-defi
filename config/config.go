@@ -240,7 +240,7 @@ func (c *Config) Authorizer(cfg *config.Config) (*utils.Authorizer, error) {
 	case "privatekey":
 		pk, err := crypto.HexToECDSA(c.Blockchain.Account.PrivateKey)
 		if err != nil {
-			return nil, err
+			return nil, errors.Wrap(err, "hex to ecdsa")
 		}
 		return utils.NewAuthorizerFromPK(pk), nil
 	default:

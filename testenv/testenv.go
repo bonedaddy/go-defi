@@ -29,7 +29,7 @@ func NewBlockchain(ctx context.Context) (*Testenv, error) {
 	auth, pk, err := utils.NewAccount()
 	if err != nil {
 		cancel()
-		return nil, err
+		return nil, errors.Wrap(err, "new account")
 	}
 	// https://medium.com/coinmonks/unit-testing-solidity-contracts-on-ethereum-with-go-3cc924091281
 	balance := new(big.Int).Mul(big.NewInt(999999999999999), big.NewInt(999999999999999))
