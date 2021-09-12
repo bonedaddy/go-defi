@@ -15,6 +15,7 @@ require (
 	github.com/huin/goupnp v1.0.1-0.20200620063722-49508fba0031 // indirect
 	github.com/influxdata/influxdb v1.8.3 // indirect
 	github.com/ipfs/go-ipfs-config v0.12.0
+	github.com/pkg/errors v0.8.1 // indirect
 	github.com/rs/cors v1.7.0 // indirect
 	github.com/shopspring/decimal v1.2.0
 	github.com/stretchr/testify v1.7.0

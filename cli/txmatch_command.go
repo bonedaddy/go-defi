@@ -10,6 +10,7 @@ import (
 	"github.com/bonedaddy/go-defi/bclient"
 	"github.com/bonedaddy/go-defi/config"
 	"github.com/bonedaddy/go-defi/txmatch"
+	"github.com/pkg/errors"
 	"github.com/urfave/cli/v2"
 )
 
@@ -26,23 +27,23 @@ func txMatchCommand() *cli.Command {
 			defer cancel()
 			cfg, err := config.LoadConfig(c.String("config.path"))
 			if err != nil {
-				return err
+				return errors.Wrap(err, "load config")
 			}
 			client, err := cfg.EthClient(ctx)
 			if err != nil {
-				return err
+				return errors.Wrap(err, "eth client")
 			}
 			abiBytes, err := ioutil.ReadFile(c.String("abi.file"))
 			if err != nil {
-				return err
+				return errors.Wrap(err, "read file")
 			}
 			bc, err := bclient.NewClient(ctx, client)
 			if err != nil {
-				return err
+				return errors.Wrap(err, "new client")
 			}
 			logger, err := cfg.ZapLogger()
 			if err != nil {
-				return err
+				return errors.Wrap(err, "zap logger")
 			}
 			matcher, err := txmatch.NewMatcher(
 				logger,
@@ -52,7 +53,7 @@ func txMatchCommand() *cli.Command {
 				[]string{c.String("contract.address")},
 			)
 			if err != nil {
-				return err
+				return errors.Wrap(err, "new matcher")
 			}
 			go func() {
 				<-ch

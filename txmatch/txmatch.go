@@ -10,6 +10,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/pkg/errors"
 	"go.uber.org/zap"
 )
 
@@ -59,16 +60,16 @@ func NewMatcher(
 func (m *Matcher) Match(outFile string, startBlock, endBlock uint64) error {
 	fh, err := os.Create(outFile)
 	if err != nil {
-		return err
+		return errors.Wrapf(err, "create %s", outFile)
 	}
 	defer fh.Close()
 	chid, err := m.bc.ChainID()
 	if err != nil {
-		return err
+		return errors.Wrap(err, "chain id")
 	}
 	ec, err := m.bc.EthClient()
 	if err != nil {
-		return err
+		return errors.Wrap(err, "eth client")
 	}
 	for i := startBlock; i <= endBlock; i++ {
 		if utils.LogContextDone(m.l, m.bc.Context()) {
@@ -79,7 +80,7 @@ func (m *Matcher) Match(outFile string, startBlock, endBlock uint64) error {
 		block, err := ec.BlockByNumber(m.bc.Context(), ib)
 		if err != nil {
 			m.l.Error("ecountered error fetching block by number", zap.Error(err), zap.Uint64("block.number", i))
-			return err
+			return errors.Wrap(err, "fetch block by number")
 		}
 		for _, tx := range block.Transactions() {
 			if utils.LogContextDone(m.l, m.bc.Context()) {

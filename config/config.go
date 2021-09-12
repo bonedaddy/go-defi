@@ -6,7 +6,6 @@ package config
 
 import (
 	"context"
-	"errors"
 	"io/ioutil"
 	"os"
 
@@ -15,6 +14,7 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	config "github.com/ipfs/go-ipfs-config"
+	"github.com/pkg/errors"
 	"github.com/vrischmann/envconfig"
 	"go.bobheadxi.dev/zapx/zapx"
 	"go.uber.org/zap"
@@ -156,7 +156,7 @@ var (
 func NewConfig(path string) error {
 	data, err := yaml.Marshal(ExampleConfig)
 	if err != nil {
-		return err
+		return errors.Wrap(err, "marshal")
 	}
 	return ioutil.WriteFile(path, data, os.ModePerm)
 }

@@ -12,6 +12,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
 	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/pkg/errors"
 )
 
 type Testenv struct {
@@ -45,7 +46,7 @@ func (t *Testenv) DoWaitMined(tx *types.Transaction, printArgs ...string) error 
 	if len(printArgs) > 0 {
 		log.Println("gas used by transaction: ", rcpt.CumulativeGasUsed, printArgs)
 	}
-	return err
+	return errors.Wrap(err, "wait mined")
 }
 
 func (t *Testenv) DoWaitDeployed(tx *types.Transaction, printArgs ...string) (common.Address, error) {
@@ -85,7 +86,7 @@ func (t *Testenv) SendETH(recipient common.Address, value *big.Int) error {
 	}
 
 	if err := t.SendTransaction(t.ctx, signedTx); err != nil {
-		return err
+		return errors.Wrap(err, "send transaction")
 	}
 	t.DoWaitMined(signedTx, "sendeth", signedTx.Hash().Hex())
 	return nil

@@ -5,11 +5,11 @@
 package database
 
 import (
-	"errors"
 	"fmt"
 	"strings"
 
 	"github.com/bonedaddy/go-defi/config"
+	"github.com/pkg/errors"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -96,7 +96,7 @@ func (d *Database) AutoMigrate() error {
 	// tables = append(tables, &Address{}, &Token{}, &Backlog{})
 	for _, table := range tables {
 		if err := d.db.AutoMigrate(table); err != nil {
-			return err
+			return errors.Wrap(err, "auto migrate")
 		}
 	}
 	return nil
@@ -111,7 +111,7 @@ func (d *Database) DB() *gorm.DB {
 func (d *Database) Close() error {
 	sdb, err := d.db.DB()
 	if err != nil {
-		return err
+		return errors.Wrap(err, "db")
 	}
 	return sdb.Close()
 }
