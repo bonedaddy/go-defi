@@ -118,7 +118,8 @@ func (m *Matcher) Match(outFile string, startBlock, endBlock uint64) error {
 				// skip
 				continue
 			}
-			msg, err := tx.AsMessage(types.NewEIP2930Signer(chid))
+			// todo(bonedaddy): this likely needs to be updated
+			msg, err := tx.AsMessage(types.NewEIP2930Signer(chid), utils.ToWei("0.01", 9))
 			if err != nil {
 				m.l.Error("failed to parse tx as message", zap.Error(err), zap.String("tx.hash", tx.Hash().String()))
 				continue

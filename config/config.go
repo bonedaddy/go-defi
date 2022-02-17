@@ -13,7 +13,6 @@ import (
 	"github.com/bonedaddy/go-defi/utils"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
-	config "github.com/ipfs/go-ipfs-config"
 	"github.com/pkg/errors"
 	"github.com/vrischmann/envconfig"
 	"go.bobheadxi.dev/zapx/zapx"
@@ -233,7 +232,7 @@ func (c *Config) EthClient(ctx context.Context) (utils.Blockchain, error) {
 // Authorizer parses the Account configuration struct to return a transaction signer
 // from https://github.com/indexed-finance/circuit-breaker/blob/master/cmd/services_run.go
 // copyright for this code can be found in the LICENSE file of indexed-finance/circuit-breaker
-func (c *Config) Authorizer(cfg *config.Config) (*utils.Authorizer, error) {
+func (c *Config) Authorizer() (*utils.Authorizer, error) {
 	switch c.Blockchain.Account.Mode {
 	case "keyfile":
 		return utils.NewAuthorizer(c.Blockchain.Account.KeyFilePath, c.Blockchain.Account.KeyFilePassword)
