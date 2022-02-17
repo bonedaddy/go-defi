@@ -6,7 +6,6 @@ package config
 
 import (
 	"context"
-	"errors"
 	"io/ioutil"
 	"os"
 
@@ -14,6 +13,7 @@ import (
 	"github.com/bonedaddy/go-defi/utils"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/pkg/errors"
 	"github.com/vrischmann/envconfig"
 	"go.bobheadxi.dev/zapx/zapx"
 	"go.uber.org/zap"
@@ -155,7 +155,7 @@ var (
 func NewConfig(path string) error {
 	data, err := yaml.Marshal(ExampleConfig)
 	if err != nil {
-		return err
+		return errors.Wrap(err, "marshal")
 	}
 	return ioutil.WriteFile(path, data, os.ModePerm)
 }
@@ -239,7 +239,7 @@ func (c *Config) Authorizer() (*utils.Authorizer, error) {
 	case "privatekey":
 		pk, err := crypto.HexToECDSA(c.Blockchain.Account.PrivateKey)
 		if err != nil {
-			return nil, err
+			return nil, errors.Wrap(err, "hex to ecdsa")
 		}
 		return utils.NewAuthorizerFromPK(pk), nil
 	default:

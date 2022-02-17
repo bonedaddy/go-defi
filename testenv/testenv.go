@@ -12,6 +12,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
 	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/pkg/errors"
 )
 
 type Testenv struct {
@@ -28,7 +29,7 @@ func NewBlockchain(ctx context.Context) (*Testenv, error) {
 	auth, pk, err := utils.NewAccount()
 	if err != nil {
 		cancel()
-		return nil, err
+		return nil, errors.Wrap(err, "new account")
 	}
 	// https://medium.com/coinmonks/unit-testing-solidity-contracts-on-ethereum-with-go-3cc924091281
 	balance := new(big.Int).Mul(big.NewInt(999999999999999), big.NewInt(999999999999999))
@@ -45,7 +46,7 @@ func (t *Testenv) DoWaitMined(tx *types.Transaction, printArgs ...string) error 
 	if len(printArgs) > 0 {
 		log.Println("gas used by transaction: ", rcpt.CumulativeGasUsed, printArgs)
 	}
-	return err
+	return errors.Wrap(err, "wait mined")
 }
 
 func (t *Testenv) DoWaitDeployed(tx *types.Transaction, printArgs ...string) (common.Address, error) {
@@ -85,7 +86,7 @@ func (t *Testenv) SendETH(recipient common.Address, value *big.Int) error {
 	}
 
 	if err := t.SendTransaction(t.ctx, signedTx); err != nil {
-		return err
+		return errors.Wrap(err, "send transaction")
 	}
 	t.DoWaitMined(signedTx, "sendeth", signedTx.Hash().Hex())
 	return nil

@@ -9,6 +9,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/pkg/errors"
 )
 
 // Authorizer wraps an embedded bind.TransactOpts type with a mutex lock allowing for
@@ -25,11 +26,11 @@ type Authorizer struct {
 func NewAuthorizer(keyFile, keyPass string) (*Authorizer, error) {
 	fileBytes, err := ioutil.ReadFile(keyFile)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "read file")
 	}
 	pk, err := keystore.DecryptKey(fileBytes, keyPass)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "decrypt key")
 	}
 	return NewAuthorizerFromPK(pk.PrivateKey), nil
 }
